@@ -5,6 +5,6 @@ PREFIX = "users"
 USER_BLUEPRINT = Blueprint(PREFIX, __name__)
 
 
-@USER_BLUEPRINT.route('/', methods=['GET'])
+@USER_BLUEPRINT.route("/", methods=["GET"])
 def all():
-    return 'Hello World!'
+    return "Hello World!"

@@ -29,4 +29,8 @@ If this is the first time running or if anything in the requirements has changed
 Make sure to have python37 and python37\Scripts added in your environmental path.
 Else command such as ```virtualenv venv``` may not work.
 
+# Development
+## Black
+run `black .` to refactor all project files.
+run `black {directory or file}` to only refactor a specific project file.
 
