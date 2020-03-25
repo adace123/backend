@@ -1,3 +1,7 @@
+# Requirements
+- python 3.7
+- pip
+
 # Installation Guide
 ## Environment Installation
 ### Linux and MacOS
@@ -8,11 +12,7 @@ The venv folder contains all dependencies which are needed to run this project. 
 
 If this is the first time running or if anything in the requirements has changed use:
 
-`virtualenv venv && source venv/bin/activate && pip install -r requirements.txt `
-
-after installing a new package use: 
-
-`pip freeze > requirements.txt `
+`python -m venv venv && source venv/bin/activate && pip install -r requirements.txt `
 
 to update the requirments folder
 
@@ -23,7 +23,7 @@ The venv folder contains all dependencies which are needed to run this project. 
 
 If this is the first time running or if anything in the requirements has changed use:
 
-`virtualenv venv && source venv/Scripts/activate && pip install -r requirements.txt `
+`python -m venv venv && source venv/Scripts/activate && pip install -r requirements.txt `
 
 #### Important Note
 Make sure to have python37 and python37\Scripts added in your environmental path.
