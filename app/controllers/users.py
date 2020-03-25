@@ -17,6 +17,6 @@ class UserController:
 
             print(user)
 
-            return jsonify({"user": user.json})
+            return jsonify({"user": user.to_dict(show=['id', 'email'])})
         except DefaultException as error:
             return jsonify({"error": error})
