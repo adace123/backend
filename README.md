@@ -29,6 +29,9 @@ If this is the first time running or if anything in the requirements has changed
 Make sure to have python37 and python37\Scripts added in your environmental path.
 Else command such as ```virtualenv venv``` may not work.
 
+## Database Installation
+run `flask db upgrade` to generate the sqlite3 in-memory database.
+
 # Development
 ## Black
 run `black .` to refactor all project files.
