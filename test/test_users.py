@@ -47,3 +47,23 @@ class TestUser(unittest.TestCase):
         self.assertEqual(json_response['success']['email'], email)
         self.assertEqual(json_response['success']['password'], password)
         self.assertEqual(models.User.query.count(), 1)
+
+    def test_update_update_email(self):
+        email = "test@test.com"
+        password = "password"
+        user = repositories.UserRepository.save(email=email, password=password, password_confirmation=password)
+
+        new_email = "new_test@test.com"
+        response = self.client.put(
+            "/api/users/" + str(user.id),
+            content_type="application/json",
+            data=json.dumps({
+                "email": new_email
+            })
+        )
+
+        self.assertEqual(response.status_code, 200)
+        json_response = json.loads(response.data.decode("utf-8"))
+
+        self.assertNotEqual(json_response['success']['email'], email)
+        self.assertEqual(json_response['success']['email'], new_email)
