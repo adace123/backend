@@ -5,11 +5,11 @@ from ..exceptions import DefaultException
 class UserRepository:
     @staticmethod
     def all():
-        return User.query.all()
+        return  User.query.all()
 
     @staticmethod
-    def get(email):
-        user = User.query.filter_by(email=email).one()
+    def get(model_id):
+        user = User.query.filter_by(id=model_id).one()
 
         if user is None:
             raise DefaultException("User could not be found", status_code=404)
@@ -25,8 +25,8 @@ class UserRepository:
         return user.save()
 
     @staticmethod
-    def update(email, password=None, password_confirmation=None):
-        user = UserRepository.get(email)
+    def update(model_id, email, password=None, password_confirmation=None):
+        user = UserRepository.get(model_id)
 
         if user is None:
             raise DefaultException("User could not be found", status_code=404)
@@ -37,4 +37,9 @@ class UserRepository:
             if password == password_confirmation:
                 user.password = password
 
-        return user.save()
+        try:
+            user.save()
+        except Exception as error:
+            raise DefaultException(error, status_code=400)
+
+        return user

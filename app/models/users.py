@@ -1,24 +1,18 @@
 from app import db
-from .model import Model
+from .model import Model, MetaModel
 from datetime import datetime
 from app import db
 
 
-class User(Model):
+class User(db.Model, Model, metaclass=MetaModel):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(), unique=True)
     password = db.Column(db.String())
 
-    _default_fields = [
-        'email',
-    ]
+    showFields = ["id", "email"]
 
-    _hidden_fields = [
-        'password'
-    ]
-
-    _readonly_fields = [
-
-    ]
+    def __init__(self, email, password):
+        self.email = email
+        self.password = password
