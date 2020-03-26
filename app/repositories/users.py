@@ -1,6 +1,7 @@
 from app.models import User
 from ..exceptions import DefaultException
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm.exc import NoResultFound
 
 
 class UserRepository:
@@ -10,9 +11,9 @@ class UserRepository:
 
     @staticmethod
     def get(model_id):
-        user = User.query.filter_by(id=model_id).one()
-
-        if user is None:
+        try:
+            user = User.query.filter_by(id=model_id).one()
+        except NoResultFound:
             raise DefaultException("User could not be found", status_code=404)
 
         return user
@@ -31,10 +32,10 @@ class UserRepository:
 
     @staticmethod
     def update(model_id, email, password=None, password_confirmation=None):
-        user = UserRepository.get(model_id)
-
-        if user is None:
-            raise DefaultException("User could not be found", status_code=404)
+        try:
+            user = UserRepository.get(model_id)
+        except DefaultException as error:
+            raise error
 
         user.email = email
 
@@ -51,10 +52,10 @@ class UserRepository:
 
     @staticmethod
     def delete(model_id):
-        user = UserRepository.get(model_id)
-
-        if user is None:
-            raise DefaultException("User could not be found", status_code=404)
+        try:
+            user = UserRepository.get(model_id)
+        except DefaultException as error:
+            raise error
 
         try:
             user.delete()
