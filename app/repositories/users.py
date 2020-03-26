@@ -1,11 +1,12 @@
 from app.models import User
 from ..exceptions import DefaultException
+from sqlalchemy.exc import IntegrityError
 
 
 class UserRepository:
     @staticmethod
     def all():
-        return  User.query.all()
+        return User.query.all()
 
     @staticmethod
     def get(model_id):
@@ -22,7 +23,11 @@ class UserRepository:
             raise DefaultException("Passwords are not the same", status_code=422)
 
         user = User(email=email, password=password)
-        return user.save()
+        try:
+            user.save()
+        except IntegrityError as error:
+            raise DefaultException('Email already exists', status_code=422)
+        return user
 
     @staticmethod
     def update(model_id, email, password=None, password_confirmation=None):

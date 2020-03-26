@@ -16,6 +16,12 @@ def get(model_id):
     return UserController.get(model_id)
 
 
+@USER_BLUEPRINT.route("/", methods=["POST"])
+def create():
+    input_data = request.get_json(force=True)
+    return UserController.create(input_data)
+
+
 @USER_BLUEPRINT.route("/<string:model_id>", methods=["PUT"])
 def update(model_id):
     input_data = request.get_json(force=True)
