@@ -34,3 +34,6 @@ Else command such as ```virtualenv venv``` may not work.
 run `black .` to refactor all project files.
 run `black {directory or file}` to only refactor a specific project file.
 
+## Testing
+run `python -m unittest discover test` to run the available tests.
+
