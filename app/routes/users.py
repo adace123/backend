@@ -19,6 +19,10 @@ def get(model_id):
 @USER_BLUEPRINT.route("/", methods=["POST"])
 def create():
     input_data = request.get_json(force=True)
+
+    if not isinstance(input_data, dict):
+        return jsonify({"error": "Request data must be a JSON object"}, status_code=400)
+
     return UserController.create(input_data)
 
 
@@ -29,3 +33,7 @@ def update(model_id):
         return jsonify({"error": "Request data must be a JSON object"}, status_code=400)
 
     return UserController.update(model_id, input_data)
+
+@USER_BLUEPRINT.route("/<string:model_id>", methods=["DELETE"])
+def delete(model_id):
+    return UserController.delete(model_id)

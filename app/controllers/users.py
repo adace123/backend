@@ -8,14 +8,14 @@ class UserController:
     def all():
         users = UserRepository.all()
 
-        return jsonify({"users": list(map(lambda user: user.json, users))}), 200
+        return jsonify({"success": list(map(lambda user: user.json, users))}), 200
 
     @staticmethod
     def get(email):
         try:
             user = UserRepository.get(email)
 
-            return jsonify({"user": user.json}), 200
+            return jsonify({"success": user.json}), 200
         except DefaultException as error:
             return jsonify({"error": error.message}), error.status_code
 
@@ -50,7 +50,7 @@ class UserController:
                 password_confirmation=password_confirmation,
             )
 
-            return jsonify({"created": user.json}), 201
+            return jsonify({"success": user.json}), 201
         except DefaultException as error:
             return jsonify({"error": error.message}), error.status_code
 
@@ -87,6 +87,22 @@ class UserController:
                 password_confirmation=password_confirmation,
             )
 
-            return jsonify({"updated": user.json}), 200
+            return jsonify({"success": user.json}), 200
+        except DefaultException as error:
+            return jsonify({"error": error.message}), error.status_code
+
+    @staticmethod
+    def delete(model_id):
+        if model_id is None:
+            return jsonify({"error": "User not found"}), 404
+
+        try:
+            deleted = UserRepository.delete(model_id)
+
+            if deleted is True:
+                return jsonify({"success": "User has been deleted"}), 200
+            else:
+                return jsonify({"error": "Unable to delete User"}), 500
+
         except DefaultException as error:
             return jsonify({"error": error.message}), error.status_code
