@@ -32,6 +32,9 @@ Else command such as ```virtualenv venv``` may not work.
 ## Database Installation
 run `flask db upgrade` to generate the sqlite3 in-memory database.
 
+## Run the Installation
+flask can now be run using the command `flask run`
+
 # Development
 ## Black
 run `black .` to refactor all project files.
@@ -41,5 +44,6 @@ run `black {directory or file}` to only refactor a specific project file.
 run `python -m unittest discover test` to run the available tests.
 
 ## API Documentation
-Swagger documentation regarding the API can be found on `/apidocs` e.g `https://mydomain.com/apidocs`
+Swagger documentation regarding the API can be found on `/apidocs` e.g `https://mydomain.com/apidocs`.
+The JSON documentation can be found on `/apispec_1.json` e.g `https://mydomain.com/apispec_1.json`
 
