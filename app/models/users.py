@@ -5,8 +5,8 @@ from datetime import datetime
 
 class User(db.Model, Model, metaclass=MetaModel):
     __tablename__ = "users"
-    print_filter = ['password']
-    to_json_filter = ['password']
+    print_filter = ["password"]
+    to_json_filter = ["password"]
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(), unique=True)
