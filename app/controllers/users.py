@@ -35,13 +35,12 @@ class UserController:
             try:
                 password_confirmation = input_data["password_confirmation"]
             except Exception:
-                return jsonify(
-                    {"error": "Password and confirmation are not the same"}
-                ), 422
+                return (
+                    jsonify({"error": "Password and confirmation are not the same"}),
+                    422,
+                )
         else:
-            return jsonify(
-                {"error": "Password and confirmation are not the same"}
-            ), 422
+            return jsonify({"error": "Password and confirmation are not the same"}), 422
 
         try:
             user = UserRepository.save(
@@ -73,9 +72,10 @@ class UserController:
             try:
                 password_confirmation = input_data["password_confirmation"]
             except Exception:
-                return jsonify(
-                    {"error": "Password and confirmation are not the same"}
-                ), 422
+                return (
+                    jsonify({"error": "Password and confirmation are not the same"}),
+                    422,
+                )
         else:
             password_confirmation = None
 

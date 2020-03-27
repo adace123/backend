@@ -27,7 +27,7 @@ class UserRepository:
         try:
             user.save()
         except IntegrityError as error:
-            raise DefaultException('Email already exists', status_code=422)
+            raise DefaultException("Email already exists", status_code=422)
         return user
 
     @staticmethod

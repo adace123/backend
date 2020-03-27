@@ -19,14 +19,16 @@ class TestUser(unittest.TestCase):
     def test_get(self):
         email = "test@test.com"
         password = "password"
-        user = repositories.UserRepository.save(email=email, password=password, password_confirmation=password)
+        user = repositories.UserRepository.save(
+            email=email, password=password, password_confirmation=password
+        )
 
         response = self.client.get("/api/users/" + str(user.id))
         json_response = json.loads(response.data.decode("utf-8"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(json_response['success']['email'], email)
-        self.assertEqual(json_response['success']['password'], password)
+        self.assertEqual(json_response["success"]["email"], email)
+        self.assertEqual(json_response["success"]["password"], password)
 
     def test_create(self):
         email = "test@test.com"
@@ -34,36 +36,38 @@ class TestUser(unittest.TestCase):
         response = self.client.post(
             "/api/users/",
             content_type="application/json",
-            data=json.dumps({
-                "email": email,
-                "password": password,
-                "password_confirmation": password
-            })
+            data=json.dumps(
+                {
+                    "email": email,
+                    "password": password,
+                    "password_confirmation": password,
+                }
+            ),
         )
 
         self.assertEqual(response.status_code, 201)
         json_response = json.loads(response.data.decode("utf-8"))
 
-        self.assertEqual(json_response['success']['email'], email)
-        self.assertEqual(json_response['success']['password'], password)
+        self.assertEqual(json_response["success"]["email"], email)
+        self.assertEqual(json_response["success"]["password"], password)
         self.assertEqual(models.User.query.count(), 1)
 
     def test_update_update_email(self):
         email = "test@test.com"
         password = "password"
-        user = repositories.UserRepository.save(email=email, password=password, password_confirmation=password)
+        user = repositories.UserRepository.save(
+            email=email, password=password, password_confirmation=password
+        )
 
         new_email = "new_test@test.com"
         response = self.client.put(
             "/api/users/" + str(user.id),
             content_type="application/json",
-            data=json.dumps({
-                "email": new_email
-            })
+            data=json.dumps({"email": new_email}),
         )
 
         self.assertEqual(response.status_code, 200)
         json_response = json.loads(response.data.decode("utf-8"))
 
-        self.assertNotEqual(json_response['success']['email'], email)
-        self.assertEqual(json_response['success']['email'], new_email)
+        self.assertNotEqual(json_response["success"]["email"], email)
+        self.assertEqual(json_response["success"]["email"], new_email)
