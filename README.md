@@ -40,3 +40,6 @@ run `black {directory or file}` to only refactor a specific project file.
 ## Testing
 run `python -m unittest discover test` to run the available tests.
 
+## API Documentation
+Swagger documentation regarding the API can be found on `/apidocs` e.g `https://mydomain.com/apidocs`
+
