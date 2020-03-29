@@ -7,6 +7,7 @@ from app import db, models, repositories, app
 class TestUser(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        app.config.update(SQLALCHEMY_DATABASE_URI=app.config['SQLITE_TEST_URI'])
         cls.client = app.test_client()
 
     def setUp(self):
